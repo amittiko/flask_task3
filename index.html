@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Prediction Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300&display=swap" rel="stylesheet">
+    <style>
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        body {
+            font-family: 'Heebo Light', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        .form-container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            background-color: #f9f9f9;
+        }
+        .form-container h1 {
+            margin-bottom: 20px;
+        }
+        .form-container input,
+        .form-container select,
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>טופס למילוי פרטי רכב</h1>
+        <form id="measurement-form"action="{{ url_for('predict')}}"method="post">
+            <label for="manufactor">יצרן:</label>
+            <input type="text" id="manufactor" name="feature" required>
+
+            <label for="Year">שנה:</label>
+            <input type="number" id="Year" name="feature" required>
+
+            <label for="model">דגם:</label>
+            <input type="text" id="model" name="feature" required>
+
+            <label for="Hand">יד:</label>
+            <input type="number" id="Hand" name="feature" required>
+
+            <label for="Gear">תיבת הילוכים:</label>
+            <select type="text" id="Gear" name="feature" required>
+                <option value="ידנית">ידנית</option>
+                <option value="רובוטית">רובוטית</option>
+                <option value="אוטומטית">אוטומטית</option>
+                <option value="טיפטרוניק">טיפטרוניק</option>
+            </select>
+
+            <label for="Engine_capacity">נפח מנוע:</label>
+            <input type="number" id="Engine_capacity" name="feature" required>
+            
+
+            <label for="Engine_type">סוג מנוע:</label>
+            <select id="Engine_type" name="feature" required>
+                <option value="בנזין">בנזין</option>
+                <option value="היברידי">היברידי</option>
+                <option value="דיזל">דיזל</option>
+                <option value="חשמלי">חשמלי</option>
+                <option value="גז">גז</option>
+            </select>
+
+            <label for="Cre_date">תאריך יצירה:</label>
+            <input type="date" id="Cre_date" name="feature" required>
+            <script>
+                document.getElementById('Cre_date').max = new Date().toISOString().split("T")[0];
+            </script>
+
+            <label for="City">עיר:</label>
+            <input type="text" id="City" name="feature" required>
+
+            <label for="Km">ק"מ:</label>
+            <input type="number" id="Km" name="feature" required>
+
+            <button type="submit">הערך מחיר</button>
+        </form>
+        <h3>{{ prediction_text }}</h3>
+    </div>
+</body>
+</html>
